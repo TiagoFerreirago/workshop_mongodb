@@ -38,6 +38,17 @@ public class UserService {
 		service.deleteById(id);
 	}
 	
+	public User update(User user) {
+		User newUser= findById(user.getId());
+		updatefrom(newUser,user);
+		return service.save(newUser);
+	}
+	
+	private void updatefrom(User newUser, User user) {
+		newUser.setName(user.getName());
+		newUser.setEmail(user.getEmail());
+	}
+
 	public User fromDto(UserDto obj) {
 		User user = new User(obj.getId(), obj.getName(), obj.getEmail());
 		return user;
