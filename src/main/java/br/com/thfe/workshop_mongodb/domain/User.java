@@ -1,9 +1,12 @@
 package br.com.thfe.workshop_mongodb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
@@ -14,6 +17,8 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	
+	@DBRef(lazy = true) 
+	List<Post> post= new ArrayList<>();
 	public User() {
 		
 	}
@@ -23,6 +28,14 @@ public class User implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.email = email;
+	}
+
+	public List<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(List<Post> post) {
+		this.post = post;
 	}
 
 	public String getId() {

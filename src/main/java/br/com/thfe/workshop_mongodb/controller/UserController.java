@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.thfe.workshop_mongodb.domain.Post;
 import br.com.thfe.workshop_mongodb.domain.User;
 import br.com.thfe.workshop_mongodb.dto.UserDto;
+import br.com.thfe.workshop_mongodb.repository.PostRepository;
 import br.com.thfe.workshop_mongodb.service.UserService;
 
 @RestController
@@ -24,6 +26,9 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private PostRepository post;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<UserDto>>findAll(){
@@ -56,5 +61,10 @@ public class UserController {
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();
+	} 
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Post>>findAllPost(){
+		List<Post> list = post.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 }
