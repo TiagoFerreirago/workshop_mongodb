@@ -2,7 +2,9 @@ package br.com.thfe.workshop_mongodb.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,6 @@ public class UserController {
 	@Autowired
 	private UserService service;
 	
-	@Autowired
-	private PostRepository post;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<UserDto>>findAll(){
@@ -62,9 +62,10 @@ public class UserController {
 		service.update(obj);
 		return ResponseEntity.noContent().build();
 	} 
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Post>>findAllPost(){
-		List<Post> list = post.findAll();
-		return ResponseEntity.ok().body(list);
+	
+	@RequestMapping(value= "/posts/{id}", method= RequestMethod.GET)
+	public ResponseEntity<List<Post>>findByIdPost(@PathVariable String id){
+		 User user = service.findById(id);
+		 return ResponseEntity.ok().body(user.getPost());
 	}
 }
