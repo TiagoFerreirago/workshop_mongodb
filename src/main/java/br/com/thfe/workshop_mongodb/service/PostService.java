@@ -1,5 +1,6 @@
 package br.com.thfe.workshop_mongodb.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,9 @@ public class PostService {
 	public Post findByIdPost(String id) {
 		Optional<Post> post = service.findById(id);
 		return post.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado"));		
+	}
+	
+	public List<Post>findByTitle(String id){
+		return service.findByTitleIgnoreCase(id);
 	}
 }
