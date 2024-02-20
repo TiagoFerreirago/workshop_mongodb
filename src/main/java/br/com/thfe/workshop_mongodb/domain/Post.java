@@ -1,13 +1,16 @@
 package br.com.thfe.workshop_mongodb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.thfe.workshop_mongodb.dto.AuthorDto;
+import br.com.thfe.workshop_mongodb.dto.CommentDto;
 @Document(value="post")
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,6 +21,8 @@ public class Post implements Serializable {
 	private String body;
 	
 	private AuthorDto autor;
+	
+	private List<CommentDto>comment = new ArrayList<>();
 	
 	public Post() {
 		
@@ -30,6 +35,14 @@ public class Post implements Serializable {
 		this.title = title;
 		this.body = body;
 		this.autor = autor;
+	}
+
+	public List<CommentDto> getComment() {
+		return comment;
+	}
+
+	public void setComment(List<CommentDto> comment) {
+		this.comment = comment;
 	}
 
 	public String getId() {

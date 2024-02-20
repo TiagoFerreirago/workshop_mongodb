@@ -10,14 +10,16 @@ import br.com.thfe.workshop_mongodb.domain.Post;
 import br.com.thfe.workshop_mongodb.service.PostService;
 
 @RestController
-@RequestMapping(value= "/posts")
+@RequestMapping(value= "/post")
 public class PostController {
 
+	
 	@Autowired
 	private PostService service;
 	
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public ResponseEntity<Post>findByIdPost(@PathVariable String id) {
+		
 		Post obj= service.findByIdPost(id);
 		return ResponseEntity.ok().body(obj);
 	}

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import br.com.thfe.workshop_mongodb.domain.Post;
 import br.com.thfe.workshop_mongodb.domain.User;
 import br.com.thfe.workshop_mongodb.dto.AuthorDto;
+import br.com.thfe.workshop_mongodb.dto.CommentDto;
 import br.com.thfe.workshop_mongodb.repository.PostRepository;
 import br.com.thfe.workshop_mongodb.repository.UserRepository;
 @Configuration
@@ -42,6 +43,15 @@ public class Instantiation implements CommandLineRunner{
 		maria.getPost().add(post);
 		bob.getPost().add(post1);
 		repository.saveAll(Arrays.asList(maria,bob));
+		
+		CommentDto comment = new CommentDto(new AuthorDto(alex), "Boa viagem mano!", fmt.parse("21/03/2018"));
+		CommentDto comment1 = new CommentDto(new AuthorDto(bob), "Aproveite!", fmt.parse("22/03/2018"));
+		CommentDto comment2 = new CommentDto(new AuthorDto(alex), "Tenha um ótimo dia!", fmt.parse("23/03/2018"));
+		
+		post.getComment().addAll(Arrays.asList(comment, comment1));
+		post1.getComment().add(comment2);
+		
+		repositoryP.saveAll(Arrays.asList(post, post1));
 	}
 	
 	
